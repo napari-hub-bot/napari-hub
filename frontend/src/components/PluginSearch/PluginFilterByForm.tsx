@@ -1,4 +1,3 @@
-import { FormLabel } from '@material-ui/core';
 import { get, set } from 'lodash';
 import { useSnapshot } from 'valtio';
 
@@ -74,13 +73,9 @@ function FilterForm() {
     <div className="grid grid-cols-1 screen-600:grid-cols-2 screen-875:grid-cols-1">
       {/* Only show label on larger screens. This is because the Accordion already includes a title. */}
       <Media greaterThanOrEqual="screen-875">
-        <FormLabel
-          className="uppercase text-black font-semibold text-sm"
-          component="legend"
-          focused={false}
-        >
+        <legend className="uppercase text-black font-semibold text-sm">
           Filter By
-        </FormLabel>
+        </legend>
       </Media>
 
       {sections.map((section) => (

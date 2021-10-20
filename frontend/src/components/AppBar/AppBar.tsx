@@ -1,5 +1,5 @@
-import { IconButton } from '@material-ui/core';
 import clsx from 'clsx';
+import { IconButton } from 'czifui';
 import { useRef, useState } from 'react';
 
 import { ColumnLayout } from '@/components/common/ColumnLayout';

@@ -1,10 +1,6 @@
-import {
-  FormControl,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-} from '@material-ui/core';
+import { FormControlLabel, RadioGroup } from '@material-ui/core';
 import clsx from 'clsx';
+import { RadioButton } from 'czifui';
 import { motion } from 'framer-motion';
 import { useSnapshot } from 'valtio';
 
@@ -43,7 +39,7 @@ function SortForm() {
   radios.push(...DEFAULT_SORT_BY_RADIO_ORDER);
 
   return (
-    <FormControl component="fieldset">
+    <fieldset>
       {/* Only show label on larger screens. This is because the Accordion already includes a title. */}
       <MediaFragment greaterThanOrEqual="screen-875">
         <legend className="uppercase text-black font-semibold text-sm mb-2">
@@ -78,9 +74,9 @@ function SortForm() {
               data-sort-type={sortType}
               value={sortType}
               control={
-                <Radio
+                <RadioButton
                   className={clsx('text-black fill-current')}
-                  color="default"
+                  stage={sortType === state.sort ? 'checked' : 'unchecked'}
                 />
               }
               label={SORT_BY_LABELS[sortType]}
@@ -88,7 +84,7 @@ function SortForm() {
           </motion.div>
         ))}
       </RadioGroup>
-    </FormControl>
+    </fieldset>
   );
 }
 

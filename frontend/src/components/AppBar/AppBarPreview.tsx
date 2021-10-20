@@ -1,5 +1,6 @@
-import { Collapse, IconButton } from '@material-ui/core';
+import { Collapse } from '@material-ui/core';
 import clsx from 'clsx';
+import { IconButton } from 'czifui';
 import { ReactNode, useState } from 'react';
 
 import {

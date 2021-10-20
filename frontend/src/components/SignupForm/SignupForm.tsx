@@ -1,5 +1,6 @@
-import { Button, FormHelperTextProps, TextField } from '@material-ui/core';
+import { FormHelperTextProps, TextField } from '@material-ui/core';
 import clsx from 'clsx';
+import { Button } from 'czifui';
 import React, { useRef, useState } from 'react';
 
 import { ColumnLayout } from '@/components/common/ColumnLayout';
@@ -106,7 +107,6 @@ export function SignupForm({ onSubmit, variant = 'default' }: Props) {
           />
           <Button
             type="submit"
-            color="primary"
             name="subscribe"
             variant="contained"
             disableElevation
@@ -115,6 +115,7 @@ export function SignupForm({ onSubmit, variant = 'default' }: Props) {
               'text-sm font-semibold',
               // sizing
               'h-[35px] col-span-2 screen-495:col-span-1',
+              'bg-napari-primary hover:bg-napari-hover',
             )}
             data-testid="submitButton"
           >

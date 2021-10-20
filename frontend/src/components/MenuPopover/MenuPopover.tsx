@@ -1,5 +1,6 @@
-import { IconButton, Popover } from '@material-ui/core';
+import { Popover } from '@material-ui/core';
 import clsx from 'clsx';
+import { IconButton } from 'czifui';
 
 import { Close } from '@/components/common/icons';
 import { Link } from '@/components/common/Link';

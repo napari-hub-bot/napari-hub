@@ -1,5 +1,5 @@
-import { Tooltip } from '@material-ui/core';
 import clsx from 'clsx';
+import { Tooltip } from 'czifui';
 import { ReactNode } from 'react';
 
 import { Link } from '@/components/common/Link';
@@ -79,7 +79,7 @@ function MetadataListItem({ inline, title, values }: MetadataListItemProps) {
               const icon = (!hasLink && value.missingIcon) || value.icon;
               const iconNode = icon && <span className="min-w-4">{icon}</span>;
 
-              const linkNode = hasLink && (
+              const linkNode = !hasLink && (
                 <>
                   {iconNode}
 
@@ -102,7 +102,7 @@ function MetadataListItem({ inline, title, values }: MetadataListItemProps) {
                 </>
               );
 
-              const emptyLinkNode = !hasLink && (
+              const emptyLinkNode = hasLink && (
                 <>
                   {iconNode}
 

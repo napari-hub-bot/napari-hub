@@ -1,6 +1,7 @@
-import { Button, Dialog, IconButton } from '@material-ui/core';
+import { Dialog } from '@material-ui/core';
 import { CheckCircle } from '@material-ui/icons';
 import clsx from 'clsx';
+import { Button, IconButton } from 'czifui';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useDebouncedCallback } from 'use-debounce';

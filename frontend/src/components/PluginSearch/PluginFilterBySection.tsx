@@ -1,5 +1,5 @@
-import { Checkbox } from '@material-ui/core';
 import clsx from 'clsx';
+import { Checkbox } from 'czifui';
 
 import { CheckboxIcon } from '@/components/common/icons';
 
@@ -37,9 +37,9 @@ function FilterCheckbox({
       id={checkboxId}
       value={enabled}
       checked={enabled}
+      stage={enabled ? 'checked' : 'unchecked'}
       onChange={(event) => setFilterState(event.target.checked)}
       className="text-black fill-current -mt-1 -ml-2"
-      color="default"
       icon={<CheckboxIcon className="w-4 h-4" />}
       checkedIcon={<CheckboxIcon checked className="w-4 h-4" />}
     />
