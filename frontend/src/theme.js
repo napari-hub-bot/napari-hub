@@ -4,6 +4,7 @@
  */
 
 const createTheme = require('@material-ui/core/styles/createTheme').default;
+const { defaultAppTheme, makeThemeOptions } = require('czifui');
 
 const colors = {
   primary: '#80d1ff',
@@ -45,13 +46,9 @@ const breakpoints = {
 const fontFamily = ['Barlow', 'sans-serif'];
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: colors.primary,
-      light: colors.light,
-      error: colors.error,
-    },
-  },
+  ...makeThemeOptions({
+    ...defaultAppTheme,
+  }),
 
   shape: {
     // Disable rounded borders for buttons, dialogs, etc.

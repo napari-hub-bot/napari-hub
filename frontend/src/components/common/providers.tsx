@@ -1,3 +1,4 @@
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { StylesProvider, ThemeProvider } from '@material-ui/styles';
 import NextPlausibleProvider from 'next-plausible';
 import { ReactNode, useEffect, useRef } from 'react';
@@ -51,18 +52,18 @@ function MaterialUIProvider({ children }: ProviderProps) {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <StylesProvider
-        // By default, Material UI will inject styles at the bottom of the
-        // body so that it has higher priority over other CSS rules. This
-        // makes it harder to override CSS, so we use `injectFirst` to
-        // inject styles in the head element instead:
-        // https://material-ui.com/styles/advanced/#injectfirst
-        injectFirst
-      >
-        {children}
-      </StylesProvider>
-    </ThemeProvider>
+    <StylesProvider
+      // By default, Material UI will inject styles at the bottom of the
+      // body so that it has higher priority over other CSS rules. This
+      // makes it harder to override CSS, so we use `injectFirst` to
+      // inject styles in the head element instead:
+      // https://material-ui.com/styles/advanced/#injectfirst
+      injectFirst
+    >
+      <ThemeProvider theme={theme}>
+        <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
+      </ThemeProvider>
+    </StylesProvider>
   );
 }
 
