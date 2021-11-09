@@ -65,9 +65,7 @@ function PluginCenterColumn() {
             id="name"
             className="flex justify-between"
             highlight={!plugin?.name}
-            tooltip={
-              <EmptyMetadataTooltip className="self-end" metadataId="name" />
-            }
+            tooltipProps={{ className: 'self-end' }}
           >
             <h1
               className={clsx(

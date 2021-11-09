@@ -6,7 +6,10 @@ import { MetadataKeys } from '@/context/plugin';
 import { previewStore } from '@/store/preview';
 import { setUrlHash } from '@/utils';
 
-import { EmptyMetadataTooltip } from './EmptyMetadataTooltip';
+import {
+  EmptyMetadataTooltip,
+  EmptyMetadataTooltipProps,
+} from './EmptyMetadataTooltip';
 
 type HTMLKey = keyof ReactHTML;
 
@@ -16,7 +19,7 @@ interface Props<T extends HTMLKey> extends HTMLProps<ReactHTML[T]> {
   component?: T;
   highlight?: boolean;
   id?: MetadataKeys;
-  tooltip?: ReactNode;
+  tooltipProps?: Partial<EmptyMetadataTooltipProps> | null;
   variant?: 'regular' | 'small';
 }
 
@@ -30,13 +33,14 @@ export function MetadataHighlighter<T extends HTMLKey>({
   component,
   highlight = false,
   id,
-  tooltip,
+  tooltipProps,
   variant,
   ...props
 }: Props<T>) {
   const snap = useSnapshot(previewStore);
   const isActive = snap.activeMetadataField === id;
   const highlightEnabled = process.env.PREVIEW && highlight;
+  const newTooltipProps = { metadataId: id, ...tooltipProps };
 
   const childNode = (
     <>
@@ -44,10 +48,8 @@ export function MetadataHighlighter<T extends HTMLKey>({
 
       {highlightEnabled && (
         <>
-          {tooltip !== undefined ? (
-            tooltip
-          ) : (
-            <EmptyMetadataTooltip metadataId={id} />
+          {tooltipProps !== null && (
+            <EmptyMetadataTooltip {...newTooltipProps} />
           )}
         </>
       )}

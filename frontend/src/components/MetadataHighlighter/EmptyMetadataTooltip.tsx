@@ -16,7 +16,7 @@ import { HUB_WIKI_LINK } from '@/constants/preview';
 import { MetadataKeys, usePluginMetadata } from '@/context/plugin';
 import { previewStore } from '@/store/preview';
 
-interface Props {
+export interface EmptyMetadataTooltipProps {
   className?: string;
   metadataId?: MetadataKeys;
 }
@@ -74,7 +74,10 @@ const TOOLTIP_CLASS_NAME = 'metadata-tooltip';
  * Renders a tooltip and metadata status icon for with information for the
  * metadata specified by `metadataId`.
  */
-export function EmptyMetadataTooltip({ className, metadataId }: Props) {
+export function EmptyMetadataTooltip({
+  className,
+  metadataId,
+}: EmptyMetadataTooltipProps) {
   const snap = useSnapshot(previewStore);
   const metadata = usePluginMetadata();
   const tooltipId = metadataId ? `${metadataId}-tooltip` : '';
