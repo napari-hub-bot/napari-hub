@@ -133,7 +133,11 @@ export function EmptyMetadataTooltip({
           TOOLTIP_CLASS_NAME,
           'bg-white',
           'text-black text-sm',
-          'border-2 border-napari-gray',
+          'border border-napari-dark-gray',
+        ),
+        arrow: clsx(
+          'text-white text-lg', // size & color
+          'before:border before:border-napari-dark-gray', // border
         ),
       }}
       placement="bottom"
@@ -159,6 +163,7 @@ export function EmptyMetadataTooltip({
       }
       key={snap.activeMetadataField}
       open={snap.activeMetadataField === metadataId}
+      arrow
     >
       <div className={className}>
         <MetadataStatus className={className} hasValue={false} />

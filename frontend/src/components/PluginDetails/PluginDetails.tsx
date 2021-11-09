@@ -9,7 +9,6 @@ import { Media, MediaFragment } from '@/components/common/media';
 import { SkeletonLoader } from '@/components/common/SkeletonLoader';
 import { TOCHeader } from '@/components/common/TableOfContents';
 import { MetadataHighlighter } from '@/components/MetadataHighlighter';
-import { EmptyMetadataTooltip } from '@/components/MetadataHighlighter/EmptyMetadataTooltip';
 import { useLoadingState } from '@/context/loading';
 import { usePluginState } from '@/context/plugin';
 import { usePlausible } from '@/hooks';
