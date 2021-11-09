@@ -50,7 +50,7 @@ export function MetadataList({
             ],
           )}
           highlight={empty}
-          tooltip={null}
+          tooltipProps={null}
           id={id}
         >
           {/* List title */}

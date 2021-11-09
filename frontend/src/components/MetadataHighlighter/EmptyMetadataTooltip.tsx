@@ -2,7 +2,7 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import Tooltip from '@material-ui/core/Tooltip';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { usePrevious } from 'react-use';
 import {
   parse as parseTransformStr,
@@ -69,6 +69,7 @@ const TOOLTIP_TEXT: Record<MetadataKeys, string> = {
 };
 
 const TOOLTIP_CLASS_NAME = 'metadata-tooltip';
+const ARROW_CLASS_NAME = 'metadata-tooltip-arrow';
 
 /**
  * Renders a tooltip and metadata status icon for with information for the
@@ -78,6 +79,8 @@ export function EmptyMetadataTooltip({
   className,
   metadataId,
 }: EmptyMetadataTooltipProps) {
+  const targetRef = useRef<HTMLDivElement>(null);
+
   const snap = useSnapshot(previewStore);
   const metadata = usePluginMetadata();
   const tooltipId = metadataId ? `${metadataId}-tooltip` : '';
@@ -97,8 +100,11 @@ export function EmptyMetadataTooltip({
       const tooltip = tooltipContainer?.getElementsByClassName(
         TOOLTIP_CLASS_NAME,
       )?.[0] as HTMLElement | null;
+      const arrow = tooltipContainer?.getElementsByClassName(
+        ARROW_CLASS_NAME,
+      )?.[0] as HTMLElement | null;
 
-      if (!tooltipContainer || !tooltip || !isFullWidth) {
+      if (!tooltipContainer || !tooltip || !arrow || !isFullWidth) {
         return;
       }
 
@@ -109,9 +115,14 @@ export function EmptyMetadataTooltip({
       tooltipContainer.style.transform = stringifyTransformStr(transformData);
 
       // Set tooltip and container to full width with padding.
-      tooltipContainer.style.width = '100vw';
-      tooltip.style.maxWidth = '100vw';
-      tooltipContainer.style.padding = `0 ${25 / 16}rem`;
+      const PADDING = `${25 / 16}rem`;
+      tooltipContainer.style.width = '100%';
+      tooltip.style.maxWidth = '100%';
+      tooltipContainer.style.padding = `0 ${PADDING}`;
+
+      const rect = targetRef.current!.getBoundingClientRect();
+      const posX = rect.x - arrow.getBoundingClientRect().width / 2;
+      arrow.style.left = `calc(${posX}px - ${PADDING}`;
     });
   }, [
     isFullWidth,
@@ -136,6 +147,7 @@ export function EmptyMetadataTooltip({
           'border border-napari-dark-gray',
         ),
         arrow: clsx(
+          ARROW_CLASS_NAME,
           'text-white text-lg', // size & color
           'before:border before:border-napari-dark-gray', // border
         ),
@@ -165,7 +177,7 @@ export function EmptyMetadataTooltip({
       open={snap.activeMetadataField === metadataId}
       arrow
     >
-      <div className={className}>
+      <div ref={targetRef} className={className}>
         <MetadataStatus className={className} hasValue={false} />
       </div>
     </Tooltip>
