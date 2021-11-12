@@ -140,6 +140,7 @@ export function EmptyMetadataTooltip({
     <Tooltip
       id={tooltipId}
       classes={{
+        popper: 'z-10',
         tooltip: clsx(
           TOOLTIP_CLASS_NAME,
           'bg-white',
