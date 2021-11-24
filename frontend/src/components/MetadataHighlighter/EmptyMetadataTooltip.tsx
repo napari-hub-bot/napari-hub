@@ -84,53 +84,8 @@ export function EmptyMetadataTooltip({
   const snap = useSnapshot(previewStore);
   const metadata = usePluginMetadata();
   const tooltipId = metadataId ? `${metadataId}-tooltip` : '';
-  const prevActiveId = usePrevious(snap.activeMetadataField);
   const theme = useTheme();
   const isFullWidth = useMediaQuery(theme.breakpoints.down(495));
-
-  // Effect to make tooltip full width on smaller screens.
-  useEffect(() => {
-    // Skip tooltip transform if the tooltip is not currently open.
-    if (snap.activeMetadataField !== metadataId) {
-      return;
-    }
-
-    setTimeout(() => {
-      const tooltipContainer = document.getElementById(tooltipId);
-      const tooltip = tooltipContainer?.getElementsByClassName(
-        TOOLTIP_CLASS_NAME,
-      )?.[0] as HTMLElement | null;
-      const arrow = tooltipContainer?.getElementsByClassName(
-        ARROW_CLASS_NAME,
-      )?.[0] as HTMLElement | null;
-
-      if (!tooltipContainer || !tooltip || !arrow || !isFullWidth) {
-        return;
-      }
-
-      // Remove transform-x for tooltip.
-      const transformData = parseTransformStr(tooltipContainer.style.transform);
-      const translateY = (transformData.translate3d as number[])?.[1] ?? 0;
-      transformData.translate3d = [0, translateY, 0];
-      tooltipContainer.style.transform = stringifyTransformStr(transformData);
-
-      // Set tooltip and container to full width with padding.
-      const PADDING = `${25 / 16}rem`;
-      tooltipContainer.style.width = '100%';
-      tooltip.style.maxWidth = '100%';
-      tooltipContainer.style.padding = `0 ${PADDING}`;
-
-      const rect = targetRef.current!.getBoundingClientRect();
-      const posX = rect.x - arrow.getBoundingClientRect().width / 2;
-      arrow.style.left = `calc(${posX}px - ${PADDING}`;
-    });
-  }, [
-    isFullWidth,
-    metadataId,
-    prevActiveId,
-    snap.activeMetadataField,
-    tooltipId,
-  ]);
 
   if (!metadataId) {
     return null;
@@ -140,12 +95,13 @@ export function EmptyMetadataTooltip({
     <Tooltip
       id={tooltipId}
       classes={{
-        popper: 'z-10',
+        popper: clsx('z-10', 'screen-lt495:w-full screen-lt495:p-6'),
         tooltip: clsx(
           TOOLTIP_CLASS_NAME,
           'bg-white',
           'text-black text-sm',
           'border border-napari-dark-gray',
+          'screen-lt495:max-w-none',
         ),
         arrow: clsx(
           ARROW_CLASS_NAME,
@@ -176,6 +132,16 @@ export function EmptyMetadataTooltip({
       }
       key={snap.activeMetadataField}
       open={snap.activeMetadataField === metadataId}
+      PopperProps={{
+        popperOptions: {
+          modifiers: {
+            offset: {
+              enabled: true,
+              offset: '0px, 0px',
+            },
+          },
+        },
+      }}
       arrow
     >
       <div ref={targetRef} className={className}>

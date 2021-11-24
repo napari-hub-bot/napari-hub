@@ -13,6 +13,8 @@ const screens = reduce(
   {},
 );
 
+screens['screen-lt495'] = { max: '495px' };
+
 function pixelsToRem(value) {
   return `${value / 16}rem`;
 }
