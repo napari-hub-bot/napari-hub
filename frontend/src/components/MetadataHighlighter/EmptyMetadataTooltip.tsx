@@ -68,9 +68,6 @@ const TOOLTIP_TEXT: Record<MetadataKeys, string> = {
   firstReleased: '',
 };
 
-const TOOLTIP_CLASS_NAME = 'metadata-tooltip';
-const ARROW_CLASS_NAME = 'metadata-tooltip-arrow';
-
 /**
  * Renders a tooltip and metadata status icon for with information for the
  * metadata specified by `metadataId`.
@@ -79,13 +76,9 @@ export function EmptyMetadataTooltip({
   className,
   metadataId,
 }: EmptyMetadataTooltipProps) {
-  const targetRef = useRef<HTMLDivElement>(null);
-
   const snap = useSnapshot(previewStore);
   const metadata = usePluginMetadata();
   const tooltipId = metadataId ? `${metadataId}-tooltip` : '';
-  const theme = useTheme();
-  const isFullWidth = useMediaQuery(theme.breakpoints.down(495));
 
   if (!metadataId) {
     return null;
@@ -95,16 +88,14 @@ export function EmptyMetadataTooltip({
     <Tooltip
       id={tooltipId}
       classes={{
-        popper: clsx('z-10', 'screen-lt495:w-full screen-lt495:p-6'),
+        popper: clsx('z-10', 'screen-lt495:w-full'),
         tooltip: clsx(
-          TOOLTIP_CLASS_NAME,
           'bg-white',
           'text-black text-sm',
           'border border-napari-dark-gray',
           'screen-lt495:max-w-none',
         ),
         arrow: clsx(
-          ARROW_CLASS_NAME,
           'text-white text-lg', // size & color
           'before:border before:border-napari-dark-gray', // border
         ),
@@ -137,14 +128,14 @@ export function EmptyMetadataTooltip({
           modifiers: {
             offset: {
               enabled: true,
-              offset: '0px, 0px',
+              offset: '0px, -5px',
             },
           },
         },
       }}
       arrow
     >
-      <div ref={targetRef} className={className}>
+      <div className={className}>
         <MetadataStatus className={className} hasValue={false} />
       </div>
     </Tooltip>
