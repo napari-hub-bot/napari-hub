@@ -1,13 +1,5 @@
-import useTheme from '@material-ui/core/styles/useTheme';
 import Tooltip from '@material-ui/core/Tooltip';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 import clsx from 'clsx';
-import { useEffect, useRef } from 'react';
-import { usePrevious } from 'react-use';
-import {
-  parse as parseTransformStr,
-  stringify as stringifyTransformStr,
-} from 'transform-parser';
 import { useSnapshot } from 'valtio';
 
 import { Link } from '@/components/common/Link';
@@ -15,6 +7,8 @@ import { MetadataStatus } from '@/components/MetadataStatus';
 import { HUB_WIKI_LINK } from '@/constants/preview';
 import { MetadataKeys, usePluginMetadata } from '@/context/plugin';
 import { previewStore } from '@/store/preview';
+
+import styles from './EmptyMetadataTooltip.module.scss';
 
 export interface EmptyMetadataTooltipProps {
   className?: string;
@@ -88,7 +82,7 @@ export function EmptyMetadataTooltip({
     <Tooltip
       id={tooltipId}
       classes={{
-        popper: clsx('z-10', 'screen-lt495:w-full'),
+        popper: clsx('z-10', styles.tooltipFullScreen),
         tooltip: clsx(
           'bg-white',
           'text-black text-sm',
