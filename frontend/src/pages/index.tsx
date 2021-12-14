@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 import { hubAPI, spdxLicenseDataAPI } from '@/axios';
 import { ErrorMessage } from '@/components/common/ErrorMessage';
 import { PluginSearch } from '@/components/PluginSearch';
+import indexFixture from '@/fixtures/index.json';
 import { SearchStoreProvider } from '@/store/search/context';
 import { SpdxLicenseData, SpdxLicenseResponse } from '@/store/search/types';
 import { PluginIndexData } from '@/types';
@@ -46,7 +47,7 @@ export default function Home({ error, index, licenses }: Props) {
       ) : (
         index &&
         licenses && (
-          <SearchStoreProvider index={index} licenses={licenses}>
+          <SearchStoreProvider index={indexFixture} licenses={licenses}>
             <PluginSearch />
           </SearchStoreProvider>
         )
